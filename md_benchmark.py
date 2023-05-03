@@ -4,7 +4,7 @@ from time import perf_counter
 
 
 TEST_FILE = 'md_example.md'
-TIMES = 1000
+TIMES = 10
 
 
 def benchmark(package_name):
@@ -51,14 +51,45 @@ def run_mistletoe(package):
 
 @benchmark('mdformat')
 def run_mdformat(package):
-    with open(TEST_FILE, 'r', encoding='utf-8') as fin:
-        return package.text(fin.read())
+    from mdformat._cli import run as mdformat_run
+    return mdformat_run(['--check', TEST_FILE])
 
 
 @benchmark('marko')
 def run_marko(package):
     with open(TEST_FILE, 'r', encoding='utf-8') as fin:
         return package.convert(fin.read())
+
+
+@benchmark('markdown_it')
+def run_markdown_it(package):
+    with open(TEST_FILE, 'r', encoding='utf-8') as fin:
+        from mdit_py_plugins.front_matter import front_matter_plugin
+        from mdit_py_plugins.footnote import footnote_plugin
+        md = (
+            package.MarkdownIt(
+                'commonmark',
+                {
+                    'breaks': True,
+                    'html': True
+                }
+            )
+            .use(front_matter_plugin)
+            .use(footnote_plugin)
+            .enable('table')
+        )
+        reading_file = fin.read()
+        rendered_markdown_it_py = md.parse(reading_file)
+        html_text = md.render(reading_file)
+        return html_text
+
+
+@benchmark('pymarkdown')
+def run_pymarkdown(package):
+    # TODO: закомментировать 488-489 строки (sys.exit(1)) в pymarkdown/main.py
+    from pymarkdown import PyMarkdownLint
+    rendered = PyMarkdownLint().main(['scan', TEST_FILE])
+    return rendered
 
 
 def run(package_name):
@@ -80,7 +111,18 @@ def main(*args):
     if args[1:]:
         run_all(args[1:])
     else:
-        run_all(['markdown', 'mistune', 'commonmark', 'mistletoe', 'mdformat', 'marko'])
+        run_all(
+            [
+                'markdown',
+                'mistune',
+                'commonmark',
+                'mistletoe',
+                'mdformat',
+                'marko',
+                'markdown_it',
+                'pymarkdown'
+            ]
+        )
 
 
 if __name__ == '__main__':
