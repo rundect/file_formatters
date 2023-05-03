@@ -1,0 +1,36 @@
+
+type:      seq
+required:  True
+sequence:
+  - type:      map
+#    classname: Person
+    required:  True
+    mapping:
+     "name":
+        type:      str
+        required:  yes
+        unique:    yes
+     "email":
+        type:      str
+        pattern:   /@/
+     "tel":
+        type:      str
+        pattern:   /^\d+-\d+-\d+$/
+     "birth":
+        type:      date
+     "age":
+        type:      int
+     "zip":
+        type:      str
+        pattern:   /^\d+-\d+$/
+     "addr":
+        type:      str
+     "blood":
+        type:      str
+        enum:
+          - A
+          - B
+          - O
+          - AB
+     "memo":
+        type:      any
