@@ -1,7 +1,7 @@
 from pykwalify.cli import run
 from mdformat._cli import run as mdformat_run
 from yamllint.cli import run as yamllint_run
-from yaml import load, dump
+import yaml
 
 valid_file = 'yaml_example.yaml'
 invalid_file = 'yaml_example_wrong.yaml'
@@ -27,5 +27,10 @@ schema_file = 'yaml_example.schema.yaml'
 # print(f"mdformat: {rendered_mdformat}")
 
 # yamllint
-rendered_yamllint = yamllint_run([valid_file])
+rendered_yamllint = yamllint_run([invalid_file])
 print(f"yamllint: {rendered_yamllint}")
+
+#pyyaml
+# with open(invalid_file, 'r') as fin:
+#     rendered = yaml.load(fin, Loader=yaml.SafeLoader)
+#     print(f"pyyaml: {rendered}")

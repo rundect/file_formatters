@@ -64,5 +64,5 @@ invalid_file = 'md_example_wrong.md'
 
 
 # pymarkdown(pymarkdownlnt)
-rendered = PyMarkdownLint().main(['scan', invalid_file])
+rendered = PyMarkdownLint().main(['scan', valid_file])
 print(f"pymarkdownlnt: {rendered}")

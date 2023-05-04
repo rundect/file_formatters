@@ -1,6 +1,6 @@
 {
                                             "mail": "foo@mail.com",
                                             "age": "test",
-                                            "gender": "M",
+                                            "gender": "M"
                                             "favorite": [ 123, 456 ]
 }

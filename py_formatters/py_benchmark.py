@@ -3,8 +3,7 @@ from importlib import import_module
 from time import perf_counter
 
 
-VALID_FILE = 'yaml_example.yaml'
-SCHEMA_FILE = 'yaml_example.schema.yaml'
+VALID_FILE = 'py_example.py'
 TIMES = 100000
 
 
@@ -24,29 +23,6 @@ def benchmark(package_name):
             return end - start
         return inner
     return decorator
-
-
-@benchmark('pykwalify')
-def run_pykwalify(package):
-    from pykwalify.cli import run
-    rendered = run(
-        {
-            "--data-file": VALID_FILE,
-            "--schema-file": [SCHEMA_FILE],
-            '--extension': None,
-            '--strict-rule-validation': None,
-            '--fix-ruby-style-regex': None,
-            '--allow-assertions': None,
-            '--encoding': None
-        }
-    )
-
-
-@benchmark('yamllint')
-def run_yamllint(package):
-    from yamllint.cli import run as yamllint_run
-    rendered = yamllint_run([VALID_FILE])
-    return rendered
 
 
 @benchmark('yaml')
@@ -77,8 +53,6 @@ def main(*args):
     else:
         run_all(
             [
-                # 'pykwalify',
-                'yamllint',
                 # 'yaml'
             ]
         )
