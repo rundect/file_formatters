@@ -9,3 +9,7 @@ mdformat-config
 pymarkdownlnt
 click
 pyyaml
+json_checker
+pykwalify
+Pygments
+yamllint

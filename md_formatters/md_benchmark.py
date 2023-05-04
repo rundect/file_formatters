@@ -4,7 +4,7 @@ from time import perf_counter
 
 
 TEST_FILE = 'md_example.md'
-TIMES = 10
+TIMES = 1000
 
 
 def benchmark(package_name):
@@ -113,14 +113,14 @@ def main(*args):
     else:
         run_all(
             [
-                'markdown',
-                'mistune',
-                'commonmark',
-                'mistletoe',
+                # 'markdown',
+                # 'mistune',
+                # 'commonmark',
+                # 'mistletoe',
                 'mdformat',
-                'marko',
-                'markdown_it',
-                'pymarkdown'
+                # 'marko',
+                # 'markdown_it',
+                # 'pymarkdown'
             ]
         )
 

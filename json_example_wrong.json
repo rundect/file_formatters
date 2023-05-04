@@ -1,6 +1,0 @@
-{
-  "mail": "foo@mail.com",
-  "age": "test",
-  "gender": "X",
-  "favorite": [ 123, 456 ]
-}
